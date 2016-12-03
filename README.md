@@ -1,5 +1,7 @@
 # Advent of Code 2016
 
+[![Build Status](https://travis-ci.org/pauldambra/adventofcode2016.svg?branch=master)](https://travis-ci.org/pauldambra/adventofcode2016)
+
 see [this page](http://adventofcode.com/2016) to see what the what. This is all ruby solutions to the puzzles being revealed there.
 
 # to run
