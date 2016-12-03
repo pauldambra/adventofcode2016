@@ -15,7 +15,7 @@ require_relative('../fancy_keypad.rb')
 # Finally, after five more moves, you end at 3.
 # So, given the actual keypad layout, the code would be 5DB3.
 
-describe "part two - fancy keypad" do
+describe "day 2 - part two - fancy keypad" do
     let(:keypad) {keypad = FancyKeypad.new([ 
       [nil,   nil,   1,    nil,  nil], 
       [nil,    2,    3,    4,    nil], 

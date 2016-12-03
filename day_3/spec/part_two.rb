@@ -9,7 +9,7 @@ example = %{
 203 403 603
 }
 
-describe "part two - counting impossible triangles by column" do
+describe "day 3 - part two - counting impossible triangles by column" do
   it "can chunk by column" do
     chunks = Triangle.chunk_columns(example.lines)
     expect(chunks.count).to eq(6)

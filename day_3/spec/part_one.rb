@@ -1,6 +1,6 @@
 require_relative('../triangle.rb')
 
-describe "part one - counting impossible triangles" do
+describe "day 3 - part one - counting impossible triangles" do
   it "identifies possible triangles" do
     expect(Triangle.isPossible?("5  10       7")).to be(true)
     expect(Triangle.isPossible?("5  10   15")).to be(false)

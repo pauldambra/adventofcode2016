@@ -20,7 +20,7 @@ require_relative('../fancy_keypad.rb')
 
 # So, in this example, the bathroom code is 1985.
 
-describe "part one - entering numbers on a keypad" do
+describe "day 2 - part one - entering numbers on a keypad" do
   let(:keypad) {keypad = FancyKeypad.new([ 
     [1,   2,   3],
     [4,   5,   6],
