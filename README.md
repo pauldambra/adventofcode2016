@@ -4,7 +4,7 @@ see [this page](http://adventofcode.com/2016) to see what the what. This is all 
 
 # to run
 
-run `make day_x` to run the tests for a desired day e.g. `make day_2`
+run `make puzzles_day_x` to run the tests for a desired day e.g. `make puzzles_day_2`
 
 # to dev
 
