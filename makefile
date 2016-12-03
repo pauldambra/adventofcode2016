@@ -1,4 +1,6 @@
 
+all:
+	bundle exec rspec **/spec/*.rb
 
 puzzles_day_1:
 	bundle exec rspec day_1/spec/*.rb
