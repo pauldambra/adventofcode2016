@@ -1,3 +1,4 @@
+require_relative('../santa_saver')
 
 describe "taking simple journies" do
   let(:santa_saver) {santa_saver = SantaSaver.new}

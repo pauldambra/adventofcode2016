@@ -1,4 +1,4 @@
-require_relative('../src/fancy_keypad.rb')
+require_relative('../fancy_keypad.rb')
 
 # the keypad is not at all like you imagined it. Instead, you are confronted with the result of hundreds of man-hours of bathroom-keypad-design meetings:
 

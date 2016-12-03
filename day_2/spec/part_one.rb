@@ -1,4 +1,4 @@
-require_relative('../src/fancy_keypad.rb')
+require_relative('../fancy_keypad.rb')
 
 ##
 # a keypad like this:

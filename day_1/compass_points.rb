@@ -1,7 +1,4 @@
-class CompassPoint
-end
-
-class North < CompassPoint
+class North
   def left
     West.new
   end
@@ -15,7 +12,7 @@ class North < CompassPoint
   end
 end
 
-class East < CompassPoint
+class East
   def left
     North.new
   end
@@ -29,7 +26,7 @@ class East < CompassPoint
   end
 end
 
-class South < CompassPoint
+class South
   def left
     East.new
   end
@@ -43,7 +40,7 @@ class South < CompassPoint
   end
 end
 
-class West < CompassPoint
+class West
   def left
     South.new
   end
