@@ -47,9 +47,6 @@ module SecondDoorHacker
 
         if acceptable_indexes.include? candidate_index then
           password_chars[candidate_index.to_i] = candidate_value if password_chars[candidate_index.to_i] == nil
-          p "hash is #{hash}"
-          p "candidate is #{candidate_value} at index #{candidate_index}"
-          p "giving #{password_chars}"
         end
       end
       index += 1

@@ -1,5 +1,5 @@
-require_relative('../../common/array.rb')
 
+require_relative('../error_correcting_reader.rb')
 # --- Day 6: Signals and Noise ---
 
 # Something is jamming your communications with Santa. Fortunately,
@@ -41,20 +41,12 @@ enarar
 
 describe "day 6 part one" do
   it "can decode the example message" do
-    columns = example_input
-      .lines
-      .chunk_columns_of_characters_by(6, example_input.lines.count - 1)
-    expect(columns.length).to be(6)
-
-    most_freq_by_col = columns.map { |c| c.group_by(&:chr).map { |k, v| [k, v.size] } }
-      .map do |c|
-        c.sort_by { |k,v| v }
-         .reverse
-         .take(1)
-      end
-
-    decoded_word = most_freq_by_col.map { |c| c[0][0] }.join('')
-
+    decoded_word = ErrorCorrectingReader.read(example_input.lines)
     expect(decoded_word).to eq('easter')
+  end
+
+  it "can solve the puzzle input" do
+    decoded_word = ErrorCorrectingReader.read(File.readlines(__dir__ + '/puzzle_input.txt'))
+    p "decoded puzzle input as #{decoded_word}"
   end
 end
