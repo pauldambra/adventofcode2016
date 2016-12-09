@@ -23,6 +23,12 @@ puzzles_day_6:
 puzzles_day_7:
 	bundle exec rspec day_7/spec/*.rb
 
+puzzles_day_8:
+	bundle exec rspec day_8/spec/*.rb
+
+puzzles_day_9:
+	bundle exec rspec day_9/spec/*.rb
+
 watch:
 	watchman-make \
 		-p 'day_1/**/*.rb' 'Makefile*' -t puzzles_day_1 \
@@ -31,4 +37,6 @@ watch:
 		-p 'day_4/**/*.rb' 'Makefile*' -t puzzles_day_4 \
 		-p 'day_5/**/*.rb' 'Makefile*' -t puzzles_day_5 \
 		-p 'day_6/**/*.rb' 'Makefile*' -t puzzles_day_6 \
-		-p 'day_7/**/*.rb' 'Makefile*' -t puzzles_day_7
+		-p 'day_7/**/*.rb' 'Makefile*' -t puzzles_day_7 \
+		-p 'day_8/**/*.rb' 'Makefile*' -t puzzles_day_8 \
+		-p 'day_9/**/*.rb' 'Makefile*' -t puzzles_day_9
