@@ -1,4 +1,4 @@
-class Hmmm
+class CountOnlyDecompressor
   def expand_length(s)
     to_first_marker = s.index('(')
 
@@ -112,7 +112,6 @@ class String
     state = SeekingMarker.new
 
     for c in self.chars  
-      # p "processing #{c}"
       state = state.next c, output      
     end
 
@@ -120,23 +119,7 @@ class String
   end
 
   def decompress_v2
-    # candidate_output = self
-
-    # while /\(\d+x\d+\)/ =~ candidate_output
-    #   output = []
-    #   state = SeekingMarker.new
-
-    #   for c in candidate_output.chars  
-    #     # p "processing #{c}"
-    #     state = state.next c, output      
-    #   end
-
-    #   candidate_output = output.join('')
-    # end
-
-    # candidate_output
-
-    return Hmmm.new.expand_length(self)
+    return CountOnlyDecompressor.new.expand_length(self)
   end
 end
 
