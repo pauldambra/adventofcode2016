@@ -36,31 +36,31 @@ require_relative('../string_decompress.rb')
 # What is the decompressed length of the file (your puzzle input)? Don't count whitespace.
 
 describe "day 9 part one" do
-  xit "can decompress ADVENT" do
+  it "can decompress ADVENT" do
     decompressed = "ADVENT".decompress
     expect(decompressed).to eq "ADVENT"
     expect(decompressed.length).to eq 6
   end
 
-  xit "can decompress A(1x5)BC" do
+  it "can decompress A(1x5)BC" do
     decompressed = "A(1x5)BC".decompress
     expect(decompressed).to eq "ABBBBBC"
     expect(decompressed.length).to eq 7
   end
 
-  xit "can decompress (3x3)XYZ" do
+  it "can decompress (3x3)XYZ" do
     decompressed = "(3x3)XYZ".decompress
     expect(decompressed).to eq "XYZXYZXYZ"
     expect(decompressed.length).to eq 9
   end
 
-  xit "can decompress A(2x2)BCD(2x2)EFG" do
+  it "can decompress A(2x2)BCD(2x2)EFG" do
     decompressed = "A(2x2)BCD(2x2)EFG".decompress
     expect(decompressed).to eq "ABCBCDEFEFG"
     expect(decompressed.length).to eq 11
   end
 
-  xit "can decompress (6x1)(1x3)A" do
+  it "can decompress (6x1)(1x3)A" do
     decompressed = "(6x1)(1x3)A".decompress
     expect(decompressed).to eq "(1x3)A"
     expect(decompressed.length).to eq 6
@@ -72,12 +72,10 @@ describe "day 9 part one" do
     expect(decompressed.length).to eq 18
   end
 
-  xit "can decompres the puzzle input" do
+  it "can decompres the puzzle input" do
     input = File.read(__dir__ + '/puzzle_input.txt').gsub(/\s+/, "")
     decompressed = input.decompress
     puts "decompressed length = #{decompressed.length}"
-
-    # puts decompressed
   end
 end
 
