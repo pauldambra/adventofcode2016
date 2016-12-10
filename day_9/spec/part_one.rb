@@ -1,4 +1,4 @@
-
+require_relative('../string_decompress.rb')
 
 # --- Day 9: Explosives in Cyberspace ---
 
@@ -35,48 +35,49 @@
 #
 # What is the decompressed length of the file (your puzzle input)? Don't count whitespace.
 
-class String
-  def decompress
-    input = self
-    output = self
-
-    while (match_data = /\((\d+)x(\d+)\)/.match input) do
-      p "match_data #{match_data}"
-
-      repeat_start_index = match_data.offset(0)[1]
-      number_of_chars_to_repeat, repetition = match_data.captures
-      sequence_to_repeat = input.slice(repeat_start_index, number_of_chars_to_repeat.to_i)
-      repeated_sequence = sequence_to_repeat * repetition.to_i
-      p "repeated_sequence #{repeated_sequence}"
-      head = input.slice 0, match_data.begin(0)
-      tail = input.slice(match_data.end(0) + sequence_to_repeat.length, input.length)
-      input = "#{head}#{repeated_sequence}#{tail}"
-      p input
-    end
-
-    output
-  end
-end
-
 describe "day 9 part one" do
-  it "can decompress ADVENT" do
-    expect("ADVENT".decompress).to eq "ADVENT"
-    expect("ADVENT".decompress.length).to eq 6
+  xit "can decompress ADVENT" do
+    decompressed = "ADVENT".decompress
+    expect(decompressed).to eq "ADVENT"
+    expect(decompressed.length).to eq 6
   end
 
-  it "can decompress A(1x5)BC" do
-    expect("A(1x5)BC".decompress).to eq "ABBBBBC"
-    expect("A(1x5)BC".decompress.length).to eq 7
+  xit "can decompress A(1x5)BC" do
+    decompressed = "A(1x5)BC".decompress
+    expect(decompressed).to eq "ABBBBBC"
+    expect(decompressed.length).to eq 7
   end
 
-  it "can decompress (3x3)XYZ" do
-    expect("(3x3)XYZ".decompress).to eq "XYZXYZXYZ"
-    expect("(3x3)XYZ".decompress.length).to eq 9
+  xit "can decompress (3x3)XYZ" do
+    decompressed = "(3x3)XYZ".decompress
+    expect(decompressed).to eq "XYZXYZXYZ"
+    expect(decompressed.length).to eq 9
   end
 
-  it "can decompress A(2x2)BCD(2x2)EFG" do
-    expect("A(2x2)BCD(2x2)EFG".decompress).to eq "ABCBCDEFEFG"
-    expect("A(2x2)BCD(2x2)EFG".decompress.length).to eq 11
+  xit "can decompress A(2x2)BCD(2x2)EFG" do
+    decompressed = "A(2x2)BCD(2x2)EFG".decompress
+    expect(decompressed).to eq "ABCBCDEFEFG"
+    expect(decompressed.length).to eq 11
+  end
+
+  xit "can decompress (6x1)(1x3)A" do
+    decompressed = "(6x1)(1x3)A".decompress
+    expect(decompressed).to eq "(1x3)A"
+    expect(decompressed.length).to eq 6
+  end
+
+  it "can decompress X(8x2)(3x3)ABCY" do
+    decompressed = "X(8x2)(3x3)ABCY".decompress
+    expect(decompressed).to eq "X(3x3)ABC(3x3)ABCY"
+    expect(decompressed.length).to eq 18
+  end
+
+  xit "can decompres the puzzle input" do
+    input = File.read(__dir__ + '/puzzle_input.txt').gsub(/\s+/, "")
+    decompressed = input.decompress
+    puts "decompressed length = #{decompressed.length}"
+
+    # puts decompressed
   end
 end
 
