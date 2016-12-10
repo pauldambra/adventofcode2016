@@ -6,7 +6,9 @@ see [this page](http://adventofcode.com/2016) to see what the what. This is all 
 
 # to run
 
-run `make puzzles_day_x` to run the tests for a desired day e.g. `make puzzles_day_2`
+run `make DAY_SELECTOR=day_x puzzles` to run the tests for a desired day e.g. `make DAY_SELECTOR=day_2 puzzles` to run day 2
+
+or `make puzzles` to run all specs
 
 # to dev
 
