@@ -8,7 +8,7 @@ class RadioisotopeTestingFacility
   def initialize(floors)
     @floors = [floors].flatten
 
-    puts show + "\n---------"
+    puts show + "\n---------\nis valid?: #{is_valid?}\n---------"
   end
 
   def load_item_from_floor_to_elevator(*item, floor_number)

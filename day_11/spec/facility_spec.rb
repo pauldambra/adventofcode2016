@@ -38,9 +38,14 @@ describe "a facility" do
   describe "can be invalid" do
     it "when a floor has an unmatched generator and microchip when elevator unloads"  do
       elevator = Elevator.new
-      elevator = elevator.load(Microchip.new(:lithium))
+      elevator = elevator.load([
+        Microchip.new(:lithium),
+        Generator.new(:hydrogen)
+      ])
 
-      floor = Floor.new(0, elevator, [Microchip.new(:hydrogen), Generator.new(:hydrogen), Generator.new(:lithium)])
+      floor = Floor.new(0, elevator, [
+        Microchip.new(:hydrogen), 
+        Generator.new(:lithium)])
 
       facility = RadioisotopeTestingFacility.new([floor, Floor.new(1)])
 

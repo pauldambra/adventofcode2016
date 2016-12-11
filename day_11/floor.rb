@@ -33,9 +33,7 @@ class Floor
     return true unless items.any? { |e| e.is_a? Generator }
 
     # An RTG powering a microchip is still dangerous to other microchips.
-    return false if microchips.length > generators.length
-
-    generators.all? { |g| microchips.any? { |i|  i.element == g.element } }
+    return microchips.all? { |m| generators().any? { |g|  m.element == g.element } }
   end
 
   def to_output

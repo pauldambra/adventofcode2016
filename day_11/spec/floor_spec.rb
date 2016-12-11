@@ -69,6 +69,16 @@ describe "a floor" do
         floor = Floor.new(0, nil, Generator.new(:hydrogen))
         expect(floor.is_valid?).to be true
       end
+
+      it "with 2 microchips" do
+        floor = Floor.new(0, nil, [Microchip.new(:hydrogen), Microchip.new(:water)])
+        expect(floor.is_valid?).to be true
+      end
+
+      it "with 2 generators" do
+        floor = Floor.new(0, nil, [Generator.new(:hydrogen), Generator.new(:water)])
+        expect(floor.is_valid?).to be true
+      end
     end
 
     describe "can be invalid" do
