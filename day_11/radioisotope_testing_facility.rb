@@ -19,6 +19,14 @@ class RadioisotopeTestingFacility
     RadioisotopeTestingFacility.new(floors)
   end
 
+  def unload_item_from_elevator_to_floor(*item, floor_number)
+    floors = Marshal.load(Marshal.dump(@floors))
+    f = floors[floor_number]
+    item.each { |i| f = f.unload(i) }
+    floors[floor_number] = f
+    RadioisotopeTestingFacility.new(floors)
+  end
+
   def elevator_goes_to_floor(old, new)
     elevator = @floors[old].elevator.clone
     raise ElevatorMustHaveContents if elevator.items.empty?
@@ -34,6 +42,9 @@ class RadioisotopeTestingFacility
     modifier = direction == :up ? 1 : -1
     current_floor = @floors.select { |f| f.has_elevator? }[0].number
     new_floor = current_floor + modifier
+    if new_floor > @floors.length - 1
+      new_floor = current_floor - 1
+    end
     elevator_goes_to_floor(current_floor, new_floor)
   end
 
@@ -43,6 +54,11 @@ class RadioisotopeTestingFacility
 
   def is_valid?
     @floors.all? { |f| f.is_valid? }
+  end
+
+  def is_complete?
+    *head, tail = @floors
+    head.all? { |e| e.items.empty? } && tail.items%2 == 0
   end
 
   def show
