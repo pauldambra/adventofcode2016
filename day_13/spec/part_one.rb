@@ -1,3 +1,5 @@
+require_relative('../node.rb')
+
 # --- Day 13: A Maze of Twisty Little Cubicles ---
 
 # You arrive at the first floor of this new building to discover
@@ -53,32 +55,13 @@
 
 # puzzle input is 1352
 
-class Array
-  def wall_or_space(favourite_number)
-    x = self[0]
-    y = self[1]
-    sum = x*x + 3*x + 2*x*y + y + y*y + favourite_number
-    binary = to_binary(sum)
-    binary.count {|x| x==1} % 2 == 0 ? :space : :wall
-  end
+require 'timeout'
 
-  private 
-
-  def to_binary(n)
-    return "0" if n == 0
-
-    r = []
-
-    32.times do
-      if (n & (1 << 31)) != 0
-        r << 1
-      else
-        (r << 0) if r.size > 0
-      end
-      n <<= 1
-    end
-
-    r
+RSpec.configure do |c|
+  c.around(:each) do |example|
+    Timeout::timeout(10) {
+      example.run
+    }
   end
 end
 
@@ -99,7 +82,70 @@ describe "day 13 part one" do
     expect([1,4].wall_or_space(10)).to eq :wall
     expect([1,5].wall_or_space(10)).to eq :space
     expect([1,6].wall_or_space(10)).to eq :space
-  end  
+  end 
+
+  it "can build two steps" do
+    start = [1,1]
+
+    Node.favourite_number = 10
+    root = Node.new(start, 0) 
+    root.expand
+    root.children.each { |e| e.expand }
+
+    # generates
+    # 0,1 => space <--
+    # 2,1 => wall
+    # 1,0 => wall
+    # 1,2 => space <--
+    # so [[0,1], [1,2]]
+
+    # [-1, 1] => invalid
+    # [1, 1] => already
+    # [0,2] => wall
+    # [0,0] => space <--
+
+    # [0,2] => already
+    # [2,2] => space <--
+    # [1,3] => wall
+    # [1,1] => already
+
+    expect(root.children.count).to eq 2
+    expect(root.children.all? {|c| c.step == 1})
+    expect(root.children.map { |e| e.coord }).to eq [[0,1], [1,2]]
+
+    expect(root.children
+               .map { |e| e.children }
+               .flatten
+               .map { |e| e.coord }).to eq [[0,0], [2,2]]
+    expect(root.children
+               .map { |e| e.children }
+               .flatten
+               .all? { |e| e.step == 2}).to eq true
+  end
+
+  it "can stop at a target" do
+    start = [1,1]
+    target = [3,3]
+    Node.favourite_number = 10
+    final_node = Node.steps_between(start, target)
+    expect(final_node.step).to eq 4
+  end
+
+  it "can solve the example input" do
+    start = [1,1]
+    target = [7,4]
+    Node.favourite_number = 10
+    final_node = Node.steps_between(start, target)
+    expect(final_node.step).to eq 11
+  end
+
+  it "can solve the puzzle input" do
+    start = [1,1]
+    target = [31,39]
+    Node.favourite_number = 1352
+    final_node = Node.steps_between(start, target)
+    p "node #{final_node.coord} took #{final_node.step} steps"
+  end
 end
 
 
