@@ -4,7 +4,7 @@ require 'timeout'
 
 RSpec.configure do |c|
   c.around(:each) do |example|
-    Timeout::timeout(240) {
+    Timeout::timeout(300) {
       example.run
     }
   end
@@ -56,13 +56,22 @@ end
 # Your puzzle input is ihaygndm.
 
 describe "day 14 part one" do
-  it "can solve puzzle input" do
+  it "can solve example input" do
     salt = 'abc'
-    generator = PadGenerator.new salt
+    generator = PadGenerator.new(salt, Hasheriser.new)
     generated_keys = generator.GetSixtyFourKeys
 
     expect(generated_keys.first[:index]).to eq 39
     expect(generated_keys[1][:index]).to eq 92
+
     expect(generated_keys.last[:index]).to eq 22728
+  end
+
+  it "can solve puzzle input" do
+    salt = 'ihaygndm'
+    generator = PadGenerator.new(salt, Hasheriser.new)
+    generated_keys = generator.GetSixtyFourKeys
+
+    p generated_keys.last
   end
 end
