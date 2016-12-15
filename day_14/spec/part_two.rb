@@ -1,4 +1,5 @@
 require_relative('../pad_generator.rb')
+require_relative('../hasheriser.rb')
 
 # --- Part Two ---
 
