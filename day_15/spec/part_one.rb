@@ -1,11 +1,11 @@
 require_relative('../sculpture.rb')
 require_relative('../disk.rb')
-
+require_relative('../simulator.rb')
 require 'timeout'
 
 RSpec.configure do |c|
   c.around(:each) do |example|
-    Timeout::timeout(20) {
+    Timeout::timeout(180) {
       example.run
     }
   end
@@ -77,28 +77,29 @@ Disc #5 has 3 positions; at time=0, it is at position 0.
 Disc #6 has 13 positions; at time=0, it is at position 5.
 }
 
-def generate_candidates
 
-end
 
-describe "with two disks" do
-  it "can find when they are at 0 at consecutive seconds" do
-    sculpture = Sculpture.new([
-      Disk.new(5, 4),
-      Disk.new(2, 1)
+describe "with a simulator" do
+  xit "can find the time to push the button" do
+    result = SculptureSimulator.simulate([
+      Disk.new(0, 5, 4),
+      Disk.new(1, 2, 1)
       ])
 
-    result = sculpture.find_time_to_press_button
-    expect(result).to eq 5
+    sculpture_result = Sculpture.new([
+      Disk.new(0, 5, 4),
+      Disk.new(1, 2, 1)
+      ]).press_button_at_time result
 
+    expect(sculpture_result).to eq falls_through: 7
   end
 end
 
 describe "day 15 part one" do
   xit "can push example sculpture button at time 0" do
     sculpture = Sculpture.new([
-      Disk.new(5, 4),
-      Disk.new(2, 1)
+      Disk.new(0, 5, 4),
+      Disk.new(1, 2, 1)
       ])
 
     expect(sculpture.press_button_at_time(0)).to eq bounced_away_at: 2
@@ -106,25 +107,34 @@ describe "day 15 part one" do
 
   xit "can push example sculpture button at time 5" do
     sculpture = Sculpture.new([
-      Disk.new(5, 4),
-      Disk.new(2, 1)
+      Disk.new(0, 5, 4),
+      Disk.new(1, 2, 1)
       ])
 
     expect(sculpture.press_button_at_time(5)).to eq falls_through: 7
   end
 
-  it "can find the time to push the button" do
-    disk_one = Disk.new(17, 1)
-    sculpture = Sculpture.new([
-      disk_one,
-      Disk.new(7, 0),
-      Disk.new(19, 2),
-      Disk.new(5, 0),
-      Disk.new(3, 0),
-      Disk.new(13, 5),
+  xit "can find the time to push the button" do
+    simulaton_result = SculptureSimulator.simulate([
+      Disk.new(0, 17, 1),
+      Disk.new(1, 7, 0),
+      Disk.new(2, 19, 2),
+      Disk.new(3, 5, 0),
+      Disk.new(4, 3, 0),
+      Disk.new(5, 13, 5)
       ])
 
-    result = sculpture.find_time_to_press_button
-    p "result is?? #{result}"
+    p "button press should be at time #{simulaton_result}"
+    
+    sculpture_result = Sculpture.new([
+      Disk.new(0, 17, 1),
+      Disk.new(1, 7, 0),
+      Disk.new(2, 19, 2),
+      Disk.new(3, 5, 0),
+      Disk.new(4, 3, 0),
+      Disk.new(5, 13, 5),
+      ]).press_button_at_time simulaton_result
+
+    expect(sculpture_result.key? :falls_through).to eq true
   end
 end
