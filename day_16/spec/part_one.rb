@@ -1,3 +1,5 @@
+require_relative('../dragon_checksum.rb')
+
 # --- Day 16: Dragon Checksum ---
 
 # You're done scanning this part of the network, but you've left
@@ -78,10 +80,24 @@
 # Your puzzle input is 01110110101001000.
 
 describe "day 16 part one" do
-  it "can randomise 1" do
+  it "can randomise example input" do
     expect("1".pre_dragon).to eq "100"
     expect("0".pre_dragon).to eq "001"
     expect("11111".pre_dragon).to eq "11111000000"
     expect("111100001010".pre_dragon).to eq "1111000010100101011110000"
+  end
+
+  it "can checksum the example input" do
+    expect("110010110100".dragon_sum).to eq "100"
+  end
+
+  it "can solve the example input" do
+    checksum = "10000".dragon_checksum_for_length(20)
+    expect(checksum).to eq "01100"
+  end
+
+  it "can solve the puzzle input" do
+    checksum = "01110110101001000".dragon_checksum_for_length(272)
+    p "puzzle checksum is #{checksum}"
   end
 end
