@@ -12,16 +12,6 @@
 
 # Although it hasn't changed, you can still get your puzzle input.
 
-require 'timeout'
-
-RSpec.configure do |c|
-  c.around(:each) do |example|
-    Timeout::timeout(1800) {
-      example.run
-    }
-  end
-end
-
 describe "day 15 part two" do
   it "can solve part two" do
     simulaton_result = SculptureSimulator.simulate([

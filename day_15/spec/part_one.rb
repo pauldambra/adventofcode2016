@@ -1,15 +1,6 @@
 require_relative('../sculpture.rb')
 require_relative('../disk.rb')
 require_relative('../simulator.rb')
-require 'timeout'
-
-RSpec.configure do |c|
-  c.around(:each) do |example|
-    Timeout::timeout(180) {
-      example.run
-    }
-  end
-end
 
 # --- Day 15: Timing is Everything ---
 

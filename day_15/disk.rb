@@ -34,17 +34,7 @@ class Disk
         if number == 1
           yielder.yield last_zero - (index_in_sculpture + 1)
         else
-          l = 0
-          loop do
-            last_zero = last_zero + @number_of_positions
-            bp = get_button_press(last_zero, index_in_sculpture)
-            l += 1
-            p "seeking multiple... #{l}"
-            if bp % Disk.button_multiple == 0
-              p "using #{bp}. it's a multiple of #{Disk.button_multiple}"
-              break
-            end
-          end
+          last_zero = last_zero + @number_of_positions
           yielder.yield get_button_press(last_zero, index_in_sculpture)
         end
       end
