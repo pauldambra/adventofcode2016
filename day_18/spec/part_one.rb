@@ -106,7 +106,6 @@ describe "day 18 - part one" do
   it "can solve puzzle" do
     f = Floor.new('^..^^.^^^..^^.^...^^^^^....^.^..^^^.^.^.^^...^.^.^.^.^^.....^.^^.^.^.^.^.^.^^..^^^^^...^.....^....^.')
     r = f.generate_next_n_rows(39)
-    puts r.join("\n")
     expect(r.length).to eq 40
     p "there are #{Floor.safe_tile_count(r)} safe tiles"
   end

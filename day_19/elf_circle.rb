@@ -66,8 +66,6 @@ class ElfCirclePartTwo
     elf = @elves.first
 
     loop do
-      p "current elf #{elf.number}"
-
       if elf == elf.next_elf
         p "#{elf.number} has all the presents!"
         @winning_elf = elf
@@ -75,7 +73,6 @@ class ElfCirclePartTwo
       end
 
       target_elf = elf.target_elf
-      p "target elf #{target_elf.number}"
 
       elf.presents += target_elf.presents
 
@@ -86,10 +83,8 @@ class ElfCirclePartTwo
       # move along two elves otherwise move one
       if @is_even
         elf.next_elf.target_elf = target_elf.next_elf
-        p "elf list is even moved target for elf #{elf.next_elf.number} to #{elf.next_elf.target_elf.number}"
       else
         elf.next_elf.target_elf = target_elf.next_elf.next_elf
-        p "elf list is odd moved target for elf #{elf.next_elf.number} to #{elf.next_elf.target_elf.number}"
       end
 
       @is_even = !@is_even #because we always delete one at a time

@@ -60,35 +60,29 @@ class VaultSimulator
     @found_path = ([@found_path] + found_targets)
                           .reject { |x| x == nil }
                           .min_by { |x| x && x.path.length }
-        p "found path now = #{@found_path}"
   end
 
   def keep_longest_path(found_targets)
     @found_path = ([@found_path] + found_targets)
                           .reject { |x| x == nil }
                           .max_by { |x| x && x.path.length }
-        p "found path now = #{@found_path}"
   end
 
   def bfs(parents)
     child_vaults = parents.reduce([]) {|total, p| total.push(p.next_options)}
                           .flatten
-    p "found #{child_vaults.length} with coords #{child_vaults.map {|e| e.position}}"
 
     found_targets = child_vaults.flatten.select {|c| c.position == @target_coord}
     still_seeking = child_vaults.flatten.select {|c| c.position != @target_coord}
-    p "got to target with #{found_targets.length}"
-    p "still seeking with #{still_seeking.length}"
+
     [child_vaults, found_targets, still_seeking]
   end
 
   def prune_paths_longer_than_discovered(parents)
     if @found_path != nil
-      p "starting with #{parents.length}"
       parents = parents.reject do |p| 
                                 p.path.length > @found_path.path.length
                                end
-      p "pruned to #{parents.length}"
     end
     parents
   end
