@@ -8,7 +8,7 @@ class Target
   end
 
   def give(chip)
-    p "#{self.class} #{@number} received chip #{chip}"
+    # p "#{self.class} #{@number} received chip #{chip}"
 
     @chips.push chip
     @chips = @chips.sort

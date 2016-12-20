@@ -80,10 +80,10 @@ class Computer
         reg = 0
         if /\d+/ =~ i[1] then
           reg = i[1].to_i
-          p "jump register is a number with value #{reg}"
+          # p "jump register is a number with value #{reg}"
         else
           reg = @registers[i[1].to_sym]
-          p "at #{instruction_index}: jump register is #{i[1].to_sym} with value #{reg}"
+          # p "at #{instruction_index}: jump register is #{i[1].to_sym} with value #{reg}"
         end
 
         if reg != 0 then

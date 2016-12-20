@@ -5,7 +5,7 @@ require_relative('../radioisotope_testing_facility.rb')
 
 describe "a facility" do
 
-  it "returns a new object when an elevator changes floor" do
+  xit "returns a new object when an elevator changes floor" do
     elevator = Elevator.new(Microchip.new(:biscuits))
     floor_one = Floor.new(0, elevator)
     floor_two = Floor.new(1)
@@ -19,13 +19,13 @@ describe "a facility" do
   end
 
   describe "can be valid" do
-    it "when a floor has matched generator and microchip" do
+    xit "when a floor has matched generator and microchip" do
       floor = Floor.new(0, nil, [Microchip.new(:hydrogen), Generator.new(:hydrogen)])
       facility = RadioisotopeTestingFacility.new(floor)
       expect(facility.is_valid?).to be true
     end
 
-    it "when one floor has a generator and another a microchip" do
+    xit "when one floor has a generator and another a microchip" do
       floor_one = Floor.new(0, nil, Microchip.new(:hydrogen))
 
       floor_two = Floor.new(1, nil, Generator.new(:lithium))
@@ -36,7 +36,7 @@ describe "a facility" do
   end
 
   describe "can be invalid" do
-    it "when a floor has an unmatched generator and microchip when elevator unloads"  do
+    xit "when a floor has an unmatched generator and microchip when elevator unloads"  do
       elevator = Elevator.new
       elevator = elevator.load([
         Microchip.new(:lithium),
@@ -56,7 +56,7 @@ describe "a facility" do
       expect(facility.is_valid?).to be false
     end
 
-    it "when a floor has an unmatched generator and microchip when elevator arrives" do
+    xit "when a floor has an unmatched generator and microchip when elevator arrives" do
       elevator = Elevator.new
       elevator = elevator.load(Microchip.new(:hydrogen))
 
@@ -74,7 +74,7 @@ describe "a facility" do
     end
 
     # An RTG powering a microchip is still dangerous to other microchips.
-    it "when a floor has a solo chip and matched generator and microchip" do
+    xit "when a floor has a solo chip and matched generator and microchip" do
       elevator = Elevator.new
       chip_a = Microchip.new(:uranium)
       gen_a = Generator.new(:uranium)

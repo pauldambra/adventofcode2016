@@ -192,7 +192,7 @@ describe "a simulator" do
     expect(possibilities.children.length).to eq 6
   end
 
-  it "can take two steps" do
+  xit "can take two steps" do
     elevator = Elevator.new
     chip_a = Microchip.new(:uranium)
     gen_a = Generator.new(:uranium)

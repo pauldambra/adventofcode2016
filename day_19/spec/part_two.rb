@@ -47,7 +47,7 @@ describe "day 19 - part two" do
     expect(c.winning_elf.number).to eq 2
   end
 
-  xit "can solve the puzzle input" do
+  it "can solve the puzzle input" do
     c = ElfCirclePartTwo.create_a_circle_of_n_elves(3012210)
     c.play
     p "winning elf is number #{c.winning_elf.number}"
