@@ -30,13 +30,13 @@ class IPV7
       bab_present = /#{candidate_bab}/ =~ address
       bab_present_and_valid = has_bab(candidate_bab, address)
 
-      if (bab_present && !bab_present_and_valid)
-        p "---------------------------------"
-        p "for #{address}"
-        p "bab #{candidate_bab} is present"
-        p "but not discovered in square braces"
-        p "---------------------------------"
-      end
+      # if (bab_present && !bab_present_and_valid)
+      #   p "---------------------------------"
+      #   p "for #{address}"
+      #   p "bab #{candidate_bab} is present"
+      #   p "but not discovered in square braces"
+      #   p "---------------------------------"
+      # end
       bab_present_and_valid
     end
   end

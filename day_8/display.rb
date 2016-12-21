@@ -28,7 +28,7 @@ class Display
   end
 
   def pixels_lit
-    show
+    # show
     @pixels.reduce(0) { |total, row| total + row.count { |x| x == '#' } }
   end
 
