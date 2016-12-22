@@ -128,7 +128,7 @@ describe "day 21 - part 1" do
     expect(scrambled).to eq 'decab'
   end
 
-  xit "can solve the puzzle input" do
+  it "can solve the puzzle input" do
     instructions = File.readlines(__dir__ + '/puzzle_input.txt')
                       .map(&:chomp)
 

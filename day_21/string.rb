@@ -11,9 +11,7 @@ class String
   def follow_scramble_instructions(instructions)
     s = self
     instructions.each_with_index do |ins, i| 
-      p "#{i}: #{ins}"
       s = s.scramble(ins) 
-      p s
     end
     s
   end

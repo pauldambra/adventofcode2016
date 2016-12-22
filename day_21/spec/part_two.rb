@@ -27,9 +27,7 @@ class String
   def follow_unscramble_instructions(instructions)
     s = self
     instructions.reverse.each_with_index do |ins, i| 
-      p "#{i}: #{ins}"
       s = s.unscramble(ins) 
-      p s
     end
     s
   end
@@ -69,36 +67,43 @@ describe "day 21 - part 2" do
     expect(unscrambled).to eq "bdeac"
   end
 
-  it "can rotate by index" do
-    unscrambled = "ecabd".unscramble('rotate based on position of letter b')
-    expect(unscrambled).to eq 'abdec'
+    # can solve this. it is not invertible. d at index 0 could have come
+    # from index 2 or 4
+  # it "can rotate by index" do
+    # unscrambled = "ecabd".unscramble('rotate based on position of letter b')
+    # expect(unscrambled).to eq 'abdec'
 
-    unscrambled = "decab".unscramble('rotate based on position of letter d')
-    expect(unscrambled).to eq 'ecabd'
-  end
+    # unscrambled = "decab".unscramble('rotate based on position of letter d')
+    # expect(unscrambled).to eq 'ecabd'
+  # end
 
   it "can unrotate 8 letter strings" do
-    instruction = 'rotate based on position of letter f'
-    s = "abcdefgh".scramble(instruction)
-    p s
-    t = s.unscramble(instruction)
-    p t
-    expect(t).to eq "abcdefgh"
+
+    letters = "abcdefgh".chars
+
+    letters.each do |l|
+      x = "abcdefgh".scramble("rotate based on position of letter #{l}")
+      indx = x.index(l)
+      y = x.unscramble("rotate based on position of letter #{l}")
+      expect(y).to eq "abcdefgh"
+    end
   end
 
-  it "can follow a sequence of instructions" do
-    unscrambled = "decab".follow_unscramble_instructions([
-      'swap position 4 with position 0',
-      'swap letter d with letter b',
-      'reverse positions 0 through 4',
-      'rotate left 1 step',
-      'move position 1 to position 4',
-      'move position 3 to position 0',
-      'rotate based on position of letter b',
-      'rotate based on position of letter d'
-      ])
-    expect(unscrambled).to eq 'abcde'
-  end
+  # can solve this. it is not invertible. d at index 0 could have come
+  # from index 2 or 4
+  # it "can follow a sequence of instructions" do
+  #   unscrambled = "decab".follow_unscramble_instructions([
+  #     'swap position 4 with position 0',
+  #     'swap letter d with letter b',
+  #     'reverse positions 0 through 4',
+  #     'rotate left 1 step',
+  #     'move position 1 to position 4',
+  #     'move position 3 to position 0',
+  #     'rotate based on position of letter b',
+  #     'rotate based on position of letter d'
+  #     ])
+  #   expect(unscrambled).to eq 'abcde'
+  # end
 
   it "can solve the puzzle input" do
     instructions = File.readlines(__dir__ + '/puzzle_input.txt')
