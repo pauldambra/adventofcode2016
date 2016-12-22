@@ -15,12 +15,7 @@ class Elf
     @next_elf.presents = 0
     @presents = new_present_count
 
-    p "elf #{@number} takes presents from elf #{@next_elf.number}."
-    p "leaving it with #{@next_elf.presents} and itself with #{presents}"
-
     @next_elf = @next_elf.next_elf
-
-    p "next elf is now #{@next_elf.number}"
   end
 end
 
