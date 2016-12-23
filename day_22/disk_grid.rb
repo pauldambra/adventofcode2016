@@ -65,7 +65,7 @@ class Step
 
   def initialize(step, grid)
     @step = step
-    @grid = grid
+    @grid = grid.clone
   end
 
   def take_step(target)
@@ -96,8 +96,8 @@ class EmptyToGoalPathFinder
   end
 
   def find_path
-    
-
+    zeroth_step = Step.new(0, @grid)
+    next_steps = zeroth_step.take_step(@target)
   end
 end
 
