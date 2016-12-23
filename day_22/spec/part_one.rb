@@ -36,12 +36,12 @@ require_relative('../disk_pairer.rb')
 describe "day 22 - part one" do
   it "does not care about the order of disk pairs" do
     a = DiskPair.new(
-      DiskNode.new('/dev/grid/node-x0-y0     89T   30T    35T   75%'),
-      DiskNode.new('/dev/grid/node-x0-y1     89T   30T    35T   75%')
+      DiskNode.parse('/dev/grid/node-x0-y0     89T   30T    35T   75%'),
+      DiskNode.parse('/dev/grid/node-x0-y1     89T   30T    35T   75%')
     )
     b = DiskPair.new(
-      DiskNode.new('/dev/grid/node-x0-y1     89T   30T    35T   75%'),
-      DiskNode.new('/dev/grid/node-x0-y0     89T   30T    35T   75%')
+      DiskNode.parse('/dev/grid/node-x0-y1     89T   30T    35T   75%'),
+      DiskNode.parse('/dev/grid/node-x0-y0     89T   30T    35T   75%')
     )
 
     expect(a).to eq b
@@ -49,12 +49,12 @@ describe "day 22 - part one" do
 
   it "can have sets of pairs" do
     a = DiskPair.new(
-      DiskNode.new('/dev/grid/node-x0-y0     89T   30T    35T   75%'),
-      DiskNode.new('/dev/grid/node-x0-y1     89T   30T    35T   75%')
+      DiskNode.parse('/dev/grid/node-x0-y0     89T   30T    35T   75%'),
+      DiskNode.parse('/dev/grid/node-x0-y1     89T   30T    35T   75%')
     )
     b = DiskPair.new(
-      DiskNode.new('/dev/grid/node-x0-y1     89T   30T    35T   75%'),
-      DiskNode.new('/dev/grid/node-x0-y0     89T   30T    35T   75%')
+      DiskNode.parse('/dev/grid/node-x0-y1     89T   30T    35T   75%'),
+      DiskNode.parse('/dev/grid/node-x0-y0     89T   30T    35T   75%')
     )
     c = Set.new
     c.add(a)
@@ -75,7 +75,7 @@ describe "day 22 - part one" do
     '/dev/grid/node-x0-y9     91T   200T    42T   78%',
     '/dev/grid/node-x0-y10    87T   200T    53T   80%',
     '/dev/grid/node-x0-y11    89T   200T    63T   82%'
-    ].map { |e| DiskNode.new e }
+    ].map { |e| DiskNode.parse e }
 
     expect(DiskPairer.new(nodes).pairs.map { |e| [e.left.name, e.right.name] }).to eq [
       ['node-x0-y0', 'node-x0-y8'],
@@ -89,7 +89,7 @@ describe "day 22 - part one" do
     nodes = [
     '/dev/grid/node-x0-y0     89T   30T    62T   75%',
     '/dev/grid/node-x0-y1     91T   30T    79T   79%',
-    ].map { |e| DiskNode.new e }
+    ].map { |e| DiskNode.parse e }
 
     expect(DiskPairer.new(nodes).pairs.map { |e| [e.left.name, e.right.name] }).to eq [
       ['node-x0-y0', 'node-x0-y1']
@@ -98,17 +98,15 @@ describe "day 22 - part one" do
 
   it "only finds pairs where node a is not empty" do
     a  = [
-      DiskNode.new('/dev/grid/node-x0-y0     89T   0T    35T   75%'),
-      DiskNode.new('/dev/grid/node-x0-y1     89T   0T    35T   75%')
+      DiskNode.parse('/dev/grid/node-x0-y0     89T   0T    35T   75%'),
+      DiskNode.parse('/dev/grid/node-x0-y1     89T   0T    35T   75%')
     ]
     expect(DiskPairer.new(a).pairs).to be_empty
   end
 
   it "can find pairs in the puzzle input" do
-    input = File.readlines(__dir__ + '/puzzle_input.txt')
-                .select { |e| e.start_with? '/dev/grid' }
-                .map(&:chomp)
-                .map { |e| DiskNode.new e }
+    input = DiskNode.parse_many(File.readlines(__dir__ + '/puzzle_input.txt'))
+                
     dp = DiskPairer.new(input)
     p "pairer finds #{dp.pairs.length} pairs"
   end

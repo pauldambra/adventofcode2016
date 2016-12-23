@@ -44,4 +44,10 @@ class DiskPairer
       end
     end
   end
+
+  def self.parse(s)
+    s.select { |e| e.start_with? '/dev/grid' }
+     .map(&:chomp)
+     .map { |e| DiskNode.new e }
+  end
 end
