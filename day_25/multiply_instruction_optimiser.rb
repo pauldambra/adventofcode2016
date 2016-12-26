@@ -1,4 +1,12 @@
 
+
+      # 'cpy b c', # => <-- here
+      # 'inc a',
+      # 'dec c',
+      # 'jnz c -2',
+      # 'dec d',
+      # 'jnz d -5',# => <-- to here === a = b * d
+
 class MultiplyInstructionOptimiser
   def self.optimise(instructions)
     possible_mult_start = -1
