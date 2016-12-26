@@ -27,4 +27,5 @@ watch:
 		-p 'day_20/**/*.rb' 'Makefile*' -t DAY_SELECTOR=day_20 puzzles \
 		-p 'day_21/**/*.rb' 'Makefile*' -t DAY_SELECTOR=day_21 puzzles \
 		-p 'day_22/**/*.rb' 'Makefile*' -t DAY_SELECTOR=day_22 puzzles \
-		-p 'day_23/**/*.rb' 'Makefile*' -t DAY_SELECTOR=day_23 puzzles
+		-p 'day_23/**/*.rb' 'Makefile*' -t DAY_SELECTOR=day_23 puzzles \
+		-p 'day_24/**/*.rb' 'Makefile*' -t DAY_SELECTOR=day_24 puzzles

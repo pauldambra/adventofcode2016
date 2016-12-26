@@ -1,3 +1,5 @@
+require_relative('../common/coordinate.rb')
+
 class DiskGrid
   attr_reader :nodes
   attr_reader :max_x
@@ -98,22 +100,5 @@ class EmptyToGoalPathFinder
   def find_path
     zeroth_step = Step.new(0, @grid)
     next_steps = zeroth_step.take_step(@target)
-  end
-end
-
-class Coordinate
-  def self.neighbours(coord, max_x, max_y)
-    candidates = [
-      [coord[0]-1, coord[1]],
-      [coord[0]+1, coord[1]],
-      [coord[0], coord[1]-1],
-      [coord[0], coord[1]+1]
-    ]
-    
-    candidates
-      .reject { |c| c[0]<0 }
-      .reject { |c| c[1]<0 }
-      .reject { |c| c[0]>max_x }
-      .reject { |c| c[1]>max_y }
   end
 end
