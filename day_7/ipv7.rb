@@ -22,26 +22,38 @@ class IPV7
 
     return false if abas.empty?
 
-    abas.any? do |aba|  
-      candidate_bab = aba.chars[1] + aba.chars[0] + aba.chars[1]
-      # p "looking for #{candidate_bab} in #{address}"
-      # r = has_bab(candidate_bab, address)
-      # p "has_bab? #{r}"
-      bab_present = /#{candidate_bab}/ =~ address
-      bab_present_and_valid = has_bab(candidate_bab, address)
+    abas.any? do |found_aba|
+      aba = found_aba[:aba]
 
-      # if (bab_present && !bab_present_and_valid)
-      #   p "---------------------------------"
-      #   p "for #{address}"
-      #   p "bab #{candidate_bab} is present"
-      #   p "but not discovered in square braces"
-      #   p "---------------------------------"
-      # end
+      candidate_bab = to_bab(aba)
+      
+      bab_present = has_bab_anywhere? candidate_bab, address
+      next if !bab_present
+
+      bab_present_and_valid = has_bab_inside_square_brackets?(candidate_bab, address)
+      if !bab_present_and_valid
+
+        a = address.gsub(/\[/,  "\e[44m\[\e[0m")
+        a = a.gsub(/\]/,  "\e[44m\]\e[0m")
+        # a = a.gsub(/#{candidate_bab}/, "\e[42m#{candidate_bab}\e[0m")
+        a = a.gsub(/#{aba}/, "\e[41m#{aba}\e[0m")
+        
+        p "---------------------------------"
+        p "address: #{address}"
+        p "aba: #{aba}"
+        p "bab: #{candidate_bab}"
+        puts a
+        p "bab #{candidate_bab} is present? #{bab_present}"
+        p "but not discovered in square braces"
+        p "---------------------------------"
+      end
       bab_present_and_valid
     end
   end
 
-  private
+  def self.has_aba?(s)
+    !find_abas(s).empty?
+  end
 
   def self.find_abas(haystack)
     split_into_overlapping_segments(haystack, 3)
@@ -49,10 +61,18 @@ class IPV7
       .reject { |ca| ca.include? '['}
       .reject { |ca| ca.include? ']'}
       .select { |aba| is_outside_of_square_brackets(aba, haystack) }
+      .map { |aba| {aba: aba, address: haystack} }
   end
 
-  def self.has_bab(bab, address)
+  def self.to_bab(aba)
+    candidate_bab = aba.chars[1] + aba.chars[0] + aba.chars[1]
+  end
 
+  def self.has_bab_anywhere?(bab, address)
+    (/#{bab}/ =~ address) != nil
+  end
+
+  def self.has_bab_inside_square_brackets?(bab, address)
     !is_outside_of_square_brackets(bab, address)
   end
 

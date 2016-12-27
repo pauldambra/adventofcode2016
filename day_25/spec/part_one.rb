@@ -100,11 +100,6 @@ out a}))
     expect(computer.out_signal).to eq [7]
   end
 
-  # it "can find alternating strings of 010101" do
-  #   expect(is_alternating('01010101010101010101010101')).to be true
-  #   expect(is_alternating('01010101110101010101010101')).to be false
-  # end
-
   it "can probe for desired string" do
     initial_a = -1
 
@@ -120,36 +115,12 @@ out a}))
 
       was_alternating = computer.execute(puzzle_input)
 
-      p "initialising register a with #{initial_a}"
-      p "output signal #{computer.out_signal} was alternating signal? #{was_alternating}"
-
       break if was_alternating
+      break if initial_a > 200
     end
 
     p "lowest value to initialize a is #{initial_a}"
   end
-
-  # it "can cheat" do
-  #   #instructions do 9 * 282 = 
-  #   i = 2538
-  #   x = -1
-  #   loop do
-  #     x += 1
-  #     binary_representation = ("%b" % (x + i))
-  #     p "rep for #{x} is #{binary_representation}"
-  #     break if binary_representation == '010101010101'
-  #     break if x == 1400000
-  #   end
-  # end
-
-  # def is_alternating(s)
-  #   cs = s.chars
-  #   evens_are_zeroes = cs.select.with_index { |_, i| i.even? }
-  #                               .all? { |c| c == '0' }
-  #   odds_are_ones = cs.select.with_index { |_, i| i.odd? }
-  #                               .all? { |c| c == '1' }
-  #   evens_are_zeroes && odds_are_ones
-  # end
 end
 
 

@@ -17,18 +17,18 @@ class Computer
   end
 
   def execute(instructions)
-    # instructions = MultiplyInstructionOptimiser.optimise(instructions)
-    # instructions = AddInstructionOptimiser.optimise(instructions)
+    instructions = MultiplyInstructionOptimiser.optimise(instructions)
+    instructions = AddInstructionOptimiser.optimise(instructions)
 
     found_alternating_signal = false
-    
+
     instruction_index = 0
     while instruction_index < instructions.length
 
-      found_alternating_signal = check_signal_is_alternating
+      found_alternating_signal = is_alternating?(out_signal)
 
       break unless found_alternating_signal #must be alternating
-      break if out_signal.length == 20001 #do not run forever
+      break if out_signal.length == 201 #do not run forever
 
       i = instructions[instruction_index]
       i = i.split(' ')
@@ -67,18 +67,16 @@ class Computer
     found_alternating_signal
   end
 
-  def check_signal_is_alternating
-    return true if out_signal.empty?
+    def is_alternating?(s)
+      return true if s.empty?
+      return true if s.length < 2
 
-    if out_signal.length == 1
-      out_signal.first == 0
-    else
-      last = out_signal[out_signal.length - 1]
-      penultimate = out_signal[out_signal.length - 2]
-
-      penultimate == 0 ? last == 1 : last == 0
+      evens_are_zeroes = s.select.with_index { |_, i| i.even? }
+                                  .all? { |c| c == 0 }
+      odds_are_ones = s.select.with_index { |_, i| i.odd? }
+                                  .all? { |c| c == 1 }
+      evens_are_zeroes && odds_are_ones
     end
-  end
 
   def self.parse(instructions)
     instructions.lines.map(&:chomp).reject {|l| l.empty?}
