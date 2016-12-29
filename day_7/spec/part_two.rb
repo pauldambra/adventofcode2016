@@ -35,61 +35,43 @@ require_relative('../ipv7.rb')
 
 describe "day 7 part two" do
   describe "when processing the provided examples" do
+    it "has no aba" do
+      r = IPV7.supports_ssl? "aaa[bab]xxz"
+      expect(r[:supports_ssl]).to be false
+    end
     it "can aba[bab]xyz" do
-      expect(IPV7.supports_ssl? "aba[bab]xyz").to be true  
+      r = IPV7.supports_ssl? "aba[bab]xyz"
+      expect(r[:supports_ssl]).to be true
     end
 
     it "can xyx[xyx]xyx" do 
-      expect(IPV7.supports_ssl? 'xyx[xyx]xyx').to be false
+      r = IPV7.supports_ssl? 'xyx[xyx]xyx'
+      expect(r[:supports_ssl]).to be false
     end
 
     it "can aaa[kek]eke" do
-      expect(IPV7.supports_ssl? 'aaa[kek]eke').to be true
+      r = IPV7.supports_ssl? 'aaa[kek]eke'
+      expect(r[:supports_ssl]).to be true
     end
     it "can zazbz[bzb]cdb" do
-      expect(IPV7.has_aba? 'zazbz[bzb]cdb').to be true
-      expect(IPV7.has_bab_anywhere? 'bzb', 'zazbz[bzb]cdb').to be true
-      expect(IPV7.has_bab_inside_square_brackets? 'bzb', 'zazbz[bzb]cdb').to be true
-      expect(IPV7.supports_ssl? 'zazbz[bzb]cdb').to be true
+      r = IPV7.supports_ssl? 'zazbz[bzb]cdb'
+      expect(r[:supports_ssl]).to be true
     end 
 
     it "can ottpscfbgoiyfri[iwzhojzrpzuinumuwd]orfroqlcemumqbqqrea" do
       input = 'ottpscfbgoiyfri[iwzhojzrpzuinumuwd]orfroqlcemumqbqqrea'
-      expect(IPV7.has_aba? input).to be true
-      expect(IPV7.has_bab_anywhere? 'umu', input).to be true
-      expect(IPV7.has_bab_inside_square_brackets? 'umu', input).to be true
-      expect(IPV7.supports_ssl? input).to be true
+      r = IPV7.supports_ssl? input
+      expect(r[:supports_ssl]).to be true
     end
   end
 
   it "can count the SSL supporting IPs in the puzzle_input" do
-    count = File.readlines(__dir__ + '/puzzle_input.txt')
+    my_passes = File.readlines(__dir__ + '/puzzle_input.txt')
                 .map(&:chomp)
-                # .tap { |l| p "there are #{l.length} addresses"}
-                .select { |l| IPV7.has_aba?(l) }
-                # .tap { |l| p "#{l.length} have an aba"}
-                .map { |l| IPV7.find_abas(l) }
+                .map { |e| IPV7.supports_ssl?(e) }
                 .flatten
-                # .tap { |l| p "each string can have more than one so there are #{l.length} candidates"}
-                .map { |l| l[:bab] = IPV7.to_bab(l[:aba]); l }
-                # .tap { |l| log_file('1-with-babs.txt', l)}
-                .select do |l| 
-                  IPV7.has_bab_anywhere?(l[:bab], l[:address]) 
-                end
-                # .tap { |l| p "#{l.length} have a bab anywhere"}
-                # .tap { |l| log_file('2-bab-in-address.txt', l)}
-                .select { |l| IPV7.has_bab_inside_square_brackets?(l[:bab], l[:address]) }
-                # .tap { |l| p "#{l.length} have a bab inside square brackets"}
-                # .tap { |l| log_file('3-bab-in-squares-address.txt', l)}
-                .map { |e| IPV7.supports_ssl?(e[:address]) }
-                .select { |r| r }
-                .count
-    p "count of SSL supporting IPs is #{count}"
-  end
+                .select { |r| r[:supports_ssl] == true }
 
-  def log_file(path, content)
-    File.open("./#{path}", 'w') do |file|  
-      content.each {|c| file.puts c }
-    end
+    p "count of SSL supporting IPs is #{my_passes.count}"
   end
 end
