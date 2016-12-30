@@ -36,15 +36,15 @@
 
 # After executing the assembunny code in your puzzle input, what value is left in register a?
 
-require 'timeout'
+# require 'timeout'
 
-RSpec.configure do |c|
-  c.around(:each) do |example|
-    Timeout::timeout(180) {
-      example.run
-    }
-  end
-end
+# RSpec.configure do |c|
+#   c.around(:each) do |example|
+#     Timeout::timeout(180) {
+#       example.run
+#     }
+#   end
+# end
 
 class Computer
   attr_reader :registers

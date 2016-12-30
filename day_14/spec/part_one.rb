@@ -1,14 +1,14 @@
 require_relative('../pad_generator.rb')
 
-require 'timeout'
+# require 'timeout'
 
-RSpec.configure do |c|
-  c.around(:each) do |example|
-    Timeout::timeout(300) {
-      example.run
-    }
-  end
-end
+# RSpec.configure do |c|
+#   c.around(:each) do |example|
+#     Timeout::timeout(300) {
+#       example.run
+#     }
+#   end
+# end
 
 # --- Day 14: One-Time Pad ---
 

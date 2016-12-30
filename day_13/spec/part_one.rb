@@ -55,15 +55,15 @@ require_relative('../node.rb')
 
 # puzzle input is 1352
 
-require 'timeout'
+# require 'timeout'
 
-RSpec.configure do |c|
-  c.around(:each) do |example|
-    Timeout::timeout(10) {
-      example.run
-    }
-  end
-end
+# RSpec.configure do |c|
+#   c.around(:each) do |example|
+#     Timeout::timeout(10) {
+#       example.run
+#     }
+#   end
+# end
 
 describe "day 13 part one" do
   it "can check if a coordinate is a wall" do
