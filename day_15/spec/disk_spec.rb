@@ -1,5 +1,52 @@
 
 describe "a disk" do
+    describe "can step forward by multiples of its peers" do
+        context "with one disk" do
+            it "can step by expected multiple" do
+                one = Disk.new(0, 5, 0)
+                disks = [one]
+                Disk.set_button_multiple_for(disks)
+                #lcm of 5
+                disks.each { |d| expect(d.button_multiple).to eq 5 }
+                first_for_one = one.times_for_button_press.next
+                expect(first_for_one).to eq 4
+                #takes one second to fall
+                result = one.if_capsule_arrives_at(5)
+                expect(result.key? :falls_through).to eq true
+            end
+        end
+
+        context "with disks that start at 0" do
+            it "can calculate expected multiples" do
+                one = Disk.new(0, 5, 0)
+                two = Disk.new(1, 7, 0)
+                three = Disk.new(2, 19, 1)
+                disks = [one, two, three]
+                
+                Disk.set_button_multiple_for(disks)
+
+                #lcm of 5 and 7 == 35
+                disks.each { |d| expect(d.button_multiple).to eq 35 }
+            end
+
+            it "can step by expected multiples" do
+                one = Disk.new(0, 5, 0)
+                two = Disk.new(1, 7, 0)
+                three = Disk.new(2, 19, 1)
+                disks = [one, two, three]
+                
+                Disk.set_button_multiple_for(disks)
+
+                first_for_one = one.times_for_button_press.next
+                first_for_two = two.times_for_button_press.next
+                first_for_three = three.times_for_button_press.next
+
+                expect(first_for_one).to eq 34
+                expect(first_for_two).to eq 35
+                expect(first_for_three).to eq 36
+            end 
+        end
+    end
   it "can report the first time at position 0" do
     # [0, 1, 2, 3, *4]
     disk_one = Disk.new(0, 5, 4)

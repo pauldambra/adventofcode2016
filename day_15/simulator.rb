@@ -1,17 +1,18 @@
 class SculptureSimulator
-  def self.simulate(disks)
-
-    Disk.set_button_multiple_for(disks)
+  def self.simulate(disks, upper_limit = 3000000)
     
     button_presses_for_all_disks = []
     button_presses_for_each_disk = disks.map { |e| [] }
 
     while button_presses_for_all_disks.empty?
+      Disk.set_button_multiple_for(disks)
       presses_for_zero = next_100_button_presses_for_each_disk(disks)
-      presses_for_zero.each_with_index do |ps, i|
+      presses_for_zero.each.with_index do |ps, i|
         button_presses_for_each_disk[i].concat(ps)
       end
       button_presses_for_all_disks = button_presses_for_each_disk.inject(:&)
+
+      break if button_presses_for_all_disks.length > upper_limit
     end
 
     button_presses_for_all_disks[0]

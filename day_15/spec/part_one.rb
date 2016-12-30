@@ -71,7 +71,7 @@ Disc #6 has 13 positions; at time=0, it is at position 5.
 
 
 describe "with a simulator" do
-  xit "can find the time to push the button" do
+  it "can find the time to push the button" do
     result = SculptureSimulator.simulate([
       Disk.new(0, 5, 4),
       Disk.new(1, 2, 1)
@@ -87,7 +87,7 @@ describe "with a simulator" do
 end
 
 describe "day 15 part one" do
-  xit "can push example sculpture button at time 0" do
+  it "can push example sculpture button at time 0" do
     sculpture = Sculpture.new([
       Disk.new(0, 5, 4),
       Disk.new(1, 2, 1)
@@ -96,7 +96,7 @@ describe "day 15 part one" do
     expect(sculpture.press_button_at_time(0)).to eq bounced_away_at: 2
   end
 
-  xit "can push example sculpture button at time 5" do
+  it "can push example sculpture button at time 5" do
     sculpture = Sculpture.new([
       Disk.new(0, 5, 4),
       Disk.new(1, 2, 1)
@@ -113,7 +113,7 @@ describe "day 15 part one" do
       Disk.new(3, 5, 0),
       Disk.new(4, 3, 0),
       Disk.new(5, 13, 5)
-      ])
+      ], 400000)
 
     p "button press should be at time #{simulaton_result}"
     
