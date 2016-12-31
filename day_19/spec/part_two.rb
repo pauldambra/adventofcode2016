@@ -1,3 +1,5 @@
+require_relative('../elf_circle.rb')
+
 # --- Part Two ---
 
 # Realizing the folly of their present-exchange rules, the Elves

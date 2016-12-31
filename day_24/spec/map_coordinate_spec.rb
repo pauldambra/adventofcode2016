@@ -1,3 +1,5 @@
+require_relative('../map.rb')
+
 describe "map coordinates" do
       it "can parse a row" do
       row_map = Map.parse(

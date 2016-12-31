@@ -1,4 +1,4 @@
-
+require_relative('../balance_bot_factory.rb')
 
 # --- Part Two ---
 

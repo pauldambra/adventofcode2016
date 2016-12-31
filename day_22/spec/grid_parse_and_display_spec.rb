@@ -1,4 +1,5 @@
 require_relative('../disk_grid.rb')
+require_relative('../disk_node.rb')
 
 describe "grid parsing and display" do
   it "can be cloned" do

@@ -1,4 +1,6 @@
 require_relative('../disk_grid.rb')
+require_relative('../disk_node.rb')
+
 # --- Part Two ---
 
 # Now that you have a better understanding of the grid, it's time to get to work.

@@ -1,5 +1,8 @@
 DAY_SELECTOR?=**
 
+parallel_puzzles:
+	bundle exec parallel_rspec $(DAY_SELECTOR)/spec/*.rb
+
 puzzles:
 	bundle exec rspec $(DAY_SELECTOR)/spec/*.rb
 

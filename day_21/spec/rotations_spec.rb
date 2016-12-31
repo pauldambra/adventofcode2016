@@ -1,3 +1,4 @@
+require_relative('../rotate_based_on_letter_position.rb')
 
 describe "the rotation by index" do
   it "works for all the cases" do

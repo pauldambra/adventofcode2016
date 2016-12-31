@@ -4,6 +4,7 @@ require_relative('../reverse_sequence.rb')
 require_relative('../rotate_by_steps.rb')
 require_relative('../move_by_index.rb')
 require_relative('../rotate_based_on_letter_position.rb')
+require_relative('../string.rb')
 
 # --- Part Two ---
 

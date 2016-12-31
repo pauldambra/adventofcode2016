@@ -1,4 +1,4 @@
-
+require_relative('../ipv7.rb')
 
 my_list = [
 {:address=>"ottpscfbgoiyfri[iwzhojzrpzuinumuwd]orfroqlcemumqbqqrea", :supernet_sequences=>"ottpscfbgoiyfriorfroqlcemumqbqqrea", :aba=>"mum", :hypernet_sequences=>["iwzhojzrpzuinumuwd"], :bab=>"umu", :supports_ssl=>true}, 

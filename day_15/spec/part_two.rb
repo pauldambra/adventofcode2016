@@ -1,3 +1,4 @@
+require_relative('../simulator.rb')
 
 # --- Part Two ---
 

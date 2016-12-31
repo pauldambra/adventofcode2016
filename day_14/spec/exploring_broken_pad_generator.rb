@@ -1,3 +1,6 @@
+require_relative('../hash_checker.rb')
+require_relative('../hasheriser.rb')
+require_relative('../candidate_promoter.rb')
   
 describe "why does it not work :(" do
   it "can detect only the first three repeated characters"  do

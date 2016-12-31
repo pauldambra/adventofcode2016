@@ -1,4 +1,5 @@
 require_relative('../disk_grid.rb')
+require_relative('../disk_node.rb')
 
 describe "getting the empty disk to the goal" do
   it "can find a path" do
