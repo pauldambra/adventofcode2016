@@ -1,9 +1,11 @@
 require_relative('../common/coordinate.rb')
+require_relative('./path_finder.rb')
 
 class DiskGrid
   attr_reader :nodes
   attr_reader :max_x
   attr_reader :max_y
+  attr_reader :desired_data_node
 
   def initialize(nodes)
     @max_x = nodes.max { |a, b| a.position[0]<=>b.position[0] }.position[0]
@@ -17,8 +19,14 @@ class DiskGrid
     end
   end
 
-  def step_empty_to_goal
-    EmptyToGoalPathFinder.new(self).find_path
+  def empty_node
+    start = @nodes.select { |k, n| n.is_empty? }
+    start.first[1]
+  end
+
+  def empty_node_is_adjacent_to_goal?
+    neighbours = Coordinate.neighbours(empty_node.position, @max_x, @max_y)
+    neighbours.include? @desired_data_node
   end
 
   def pretty_print
@@ -56,49 +64,5 @@ class DiskGrid
 
   def clone
     DiskGrid.new(@nodes.map { |k,v| v.clone })
-  end
-end
-
-class Step 
-  class << self
-    @shortest_path = 0
-    attr_reader :shortest_path
-  end
-
-  def initialize(step, grid)
-    @step = step
-    @grid = grid.clone
-  end
-
-  def take_step(target)
-
-    start = @grid.nodes.select { |k, n| n.is_empty? }
-    start_node = start.first[1]
-    neighbours = Coordinate.neighbours(
-      start_node.position, @grid.max_x, @grid.max_y
-      ).map {|c| @grid.nodes[c] }
-       .select {|n| start_node.has_space_for(n) }
-
-    new_grids = neighbours.map do |orig_neighbour|
-      new_grid = @grid.clone
-      orig_empty = new_grid.nodes[start_node.position]
-      new_neighbour = new_grid.nodes[orig_neighbour.position]
-      new_grid.nodes[orig_empty.position].take_data_from(new_neighbour)
-      new_empty = new_grid.nodes.select { |k, n| n.is_empty? }
-      new_grid
-    end
-
-    new_grids.map { |e| Step(@step+1, e.clone) }
-  end
-end
-
-class EmptyToGoalPathFinder
-  def initialize(grid, target)
-    @grid = grid
-  end
-
-  def find_path
-    zeroth_step = Step.new(0, @grid)
-    next_steps = zeroth_step.take_step(@target)
   end
 end
