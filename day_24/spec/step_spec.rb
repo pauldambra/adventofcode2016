@@ -1,3 +1,4 @@
+require_relative('../step.rb')
 
 describe "steps" do
   it "can compare steps" do

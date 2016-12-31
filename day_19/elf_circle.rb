@@ -1,3 +1,5 @@
+require_relative('./elf.rb')
+
 class ElfCircle
   attr_reader :elves
 

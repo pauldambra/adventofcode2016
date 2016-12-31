@@ -1,3 +1,4 @@
+require_relative('../node.rb')
 
 # --- Part Two ---
 
