@@ -1,6 +1,6 @@
-require_relative('../multiply_instruction_optimiser.rb')
-require_relative('../add_instruction_optimiser.rb')
-require_relative('../computer.rb')
+require_relative('../../assembunny/multiply_instruction_optimiser.rb')
+require_relative('../../assembunny/add_instruction_optimiser.rb')
+require_relative('../../assembunny/computer.rb')
 
 # --- Day 25: Clock Signal ---
 

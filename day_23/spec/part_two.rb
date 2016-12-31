@@ -1,3 +1,4 @@
+require_relative('../../assembunny/computer.rb')
 
 # --- Part Two ---
 

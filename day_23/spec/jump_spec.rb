@@ -1,5 +1,5 @@
 
-require_relative('../jumping_instruction.rb')
+require_relative('../../assembunny/jumping_instruction.rb')
 
 describe "jumping" do
   context "x is 0" do

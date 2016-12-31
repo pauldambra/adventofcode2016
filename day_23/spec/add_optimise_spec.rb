@@ -1,5 +1,5 @@
 
-require_relative('../add_instruction_optimiser.rb')
+require_relative('../../assembunny/add_instruction_optimiser.rb')
 
 
 describe "optimizations exist" do

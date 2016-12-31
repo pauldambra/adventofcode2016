@@ -1,5 +1,5 @@
 
-require_relative('../multiply_instruction_optimiser.rb')
+require_relative('../../assembunny/multiply_instruction_optimiser.rb')
 
 describe "multiply optimisation" do
   it "can multiply b * d into a without optimisation" do

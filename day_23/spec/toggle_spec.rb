@@ -1,3 +1,4 @@
+require_relative('../../assembunny/toggle_instruction.rb')
 
 # tgl x toggles the instruction x away (pointing at instructions like jnz does:
 # positive means forward; negative means backward):

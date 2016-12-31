@@ -1,4 +1,4 @@
-require_relative('../copy_instruction.rb')
+require_relative('../../assembunny/copy_instruction.rb')
 
 # cpy x y copies x (either an integer or the value of a register)
 # into register y.

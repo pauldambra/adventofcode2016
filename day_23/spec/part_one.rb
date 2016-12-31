@@ -1,4 +1,4 @@
-require_relative('../computer.rb')
+require_relative('../../assembunny/computer.rb')
 
 # --- Day 23: Safe Cracking ---
 

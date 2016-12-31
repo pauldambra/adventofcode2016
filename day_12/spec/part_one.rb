@@ -1,4 +1,4 @@
-
+require_relative('../../assembunny/computer.rb')
 
 # --- Day 12: Leonardo's Monorail ---
 
@@ -46,57 +46,6 @@
 #   end
 # end
 
-class Computer
-  attr_reader :registers
-
-  def initialize(registers)
-    @registers = registers
-  end
-
-  def execute(instructions)
-    instructions = instructions.lines.map(&:chomp).reject {|l| l.empty?}
-    p instructions
-    instruction_index = 0
-    while instruction_index < instructions.length
-      i = instructions[instruction_index]
-      i = i.split(' ')
-      next_index = instruction_index + 1
-      if i[0] == 'cpy'
-        target = i[2].to_sym
-        if /\d+/ =~ i[1] then
-          # p "setting #{target} to #{i[1].to_i}"
-          @registers[target] = i[1].to_i
-        else
-          # p "setting #{target} to value from register #{i[1].to_sym}: #{@registers[i[1].to_sym]}"
-          @registers[target] = @registers[i[1].to_sym]
-        end
-      elsif i[0] == 'inc'
-        @registers[i[1].to_sym] += 1
-        # p "increment register #{i[1].to_sym} by 1 to #{@registers[i[1].to_sym]}"
-      elsif i[0] == 'dec'
-        @registers[i[1].to_sym] -= 1
-        # p "decrement register #{i[1].to_sym} by 1 to #{@registers[i[1].to_sym]}"
-      elsif i[0] == 'jnz'
-        reg = 0
-        if /\d+/ =~ i[1] then
-          reg = i[1].to_i
-          # p "jump register is a number with value #{reg}"
-        else
-          reg = @registers[i[1].to_sym]
-          # p "at #{instruction_index}: jump register is #{i[1].to_sym} with value #{reg}"
-        end
-
-        if reg != 0 then
-          next_index = instruction_index + i[2].to_i
-        end
-      end
-      # p "at instruction #{instruction_index} registers hold #{@registers}"
-      instruction_index = next_index
-    end
-
-  end
-end
-
 describe "day 12 part one" do
   it "can execute the example input" do
     computer = Computer.new({
@@ -105,13 +54,14 @@ describe "day 12 part one" do
       c: 0,
       d: 0
       })
-    computer.execute(%{
-cpy 41 a
-inc a
-inc a
-dec a
-jnz a 2
-dec a})
+    computer.execute([
+'cpy 41 a',
+'inc a',
+'inc a',
+'dec a',
+'jnz a 2',
+'dec a'
+])
     expect(computer.registers[:a]).to eq 42
   end
 
@@ -153,29 +103,31 @@ dec a})
       c: 0,
       d: 0
       })
-    computer.execute(%{cpy 1 a
-cpy 1 b
-cpy 26 d
-jnz c 2
-jnz 1 5
-cpy 7 c
-inc d
-dec c
-jnz c -2
-cpy a c
-inc a
-dec b
-jnz b -2
-cpy c b
-dec d
-jnz d -6
-cpy 18 c
-cpy 11 d
-inc a
-dec d
-jnz d -2
-dec c
-jnz c -5})
+    computer.execute([
+'cpy 1 a',
+'cpy 1 b',
+'cpy 26 d',
+'jnz c 2',
+'jnz 1 5',
+'cpy 7 c',
+'inc d',
+'dec c',
+'jnz c -2',
+'cpy a c',
+'inc a',
+'dec b',
+'jnz b -2',
+'cpy c b',
+'dec d',
+'jnz d -6',
+'cpy 18 c',
+'cpy 11 d',
+'inc a',
+'dec d',
+'jnz d -2',
+'dec c',
+'jnz c -5'
+])
     p "register a contains #{computer.registers[:a]}"
   end
 
@@ -186,29 +138,31 @@ jnz c -5})
       c: 1,
       d: 0
       })
-    computer.execute(%{cpy 1 a
-cpy 1 b
-cpy 26 d
-jnz c 2
-jnz 1 5
-cpy 7 c
-inc d
-dec c
-jnz c -2
-cpy a c
-inc a
-dec b
-jnz b -2
-cpy c b
-dec d
-jnz d -6
-cpy 18 c
-cpy 11 d
-inc a
-dec d
-jnz d -2
-dec c
-jnz c -5})
+    computer.execute([
+      'cpy 1 a',
+'cpy 1 b',
+'cpy 26 d',
+'jnz c 2',
+'jnz 1 5',
+'cpy 7 c',
+'inc d',
+'dec c',
+'jnz c -2',
+'cpy a c',
+'inc a',
+'dec b',
+'jnz b -2',
+'cpy c b',
+'dec d',
+'jnz d -6',
+'cpy 18 c',
+'cpy 11 d',
+'inc a',
+'dec d',
+'jnz d -2',
+'dec c',
+'jnz c -5'
+])
     p "register a contains #{computer.registers[:a]}"
   end
 end
