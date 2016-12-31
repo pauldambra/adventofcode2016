@@ -1,5 +1,3 @@
-require_relative('../sculpture.rb')
-require_relative('../disk.rb')
 require_relative('../simulator.rb')
 
 # --- Day 15: Timing is Everything ---
@@ -68,64 +66,20 @@ Disc #5 has 3 positions; at time=0, it is at position 0.
 Disc #6 has 13 positions; at time=0, it is at position 5.
 }
 
-
-
-describe "with a simulator" do
-  it "can find the time to push the button" do
-    result = SculptureSimulator.simulate([
-      Disk.new(0, 5, 4),
-      Disk.new(1, 2, 1)
-      ])
-
-    sculpture_result = Sculpture.new([
-      Disk.new(0, 5, 4),
-      Disk.new(1, 2, 1)
-      ]).press_button_at_time result
-
-    expect(sculpture_result).to eq falls_through: 7
-  end
-end
-
 describe "day 15 part one" do
-  it "can push example sculpture button at time 0" do
-    sculpture = Sculpture.new([
-      Disk.new(0, 5, 4),
-      Disk.new(1, 2, 1)
-      ])
+  it "can solve part one" do
+    disks = [
+      {number_of_positions: 17, starting_position: 1},
+      {number_of_positions: 7, starting_position: 0},
+      {number_of_positions: 19, starting_position: 2},
+      {number_of_positions: 5, starting_position: 0},
+      {number_of_positions: 3, starting_position: 0},
+      {number_of_positions: 13, starting_position: 5}
+    ]
 
-    expect(sculpture.press_button_at_time(0)).to eq bounced_away_at: 2
-  end
+    simulation_result = SculptureSimulator.simulate(disks.clone)
 
-  it "can push example sculpture button at time 5" do
-    sculpture = Sculpture.new([
-      Disk.new(0, 5, 4),
-      Disk.new(1, 2, 1)
-      ])
-
-    expect(sculpture.press_button_at_time(5)).to eq falls_through: 7
-  end
-
-  xit "can find the time to push the button" do
-    simulaton_result = SculptureSimulator.simulate([
-      Disk.new(0, 17, 1),
-      Disk.new(1, 7, 0),
-      Disk.new(2, 19, 2),
-      Disk.new(3, 5, 0),
-      Disk.new(4, 3, 0),
-      Disk.new(5, 13, 5)
-      ], 400000)
-
-    p "button press should be at time #{simulaton_result}"
-    
-    sculpture_result = Sculpture.new([
-      Disk.new(0, 17, 1),
-      Disk.new(1, 7, 0),
-      Disk.new(2, 19, 2),
-      Disk.new(3, 5, 0),
-      Disk.new(4, 3, 0),
-      Disk.new(5, 13, 5),
-      ]).press_button_at_time simulaton_result
-
-    expect(sculpture_result.key? :falls_through).to eq true
+    SculptureSimulator.simulate_at_tick(disks.clone, simulation_result)
+    p "to solve part one press the button at #{simulation_result}"
   end
 end

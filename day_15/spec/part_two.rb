@@ -13,29 +13,20 @@
 # Although it hasn't changed, you can still get your puzzle input.
 
 describe "day 15 part two" do
-  xit "can solve part two" do
-    simulaton_result = SculptureSimulator.simulate([
-      Disk.new(0, 17, 1),
-      Disk.new(1, 7, 0),
-      Disk.new(2, 19, 2),
-      Disk.new(3, 5, 0),
-      Disk.new(4, 3, 0),
-      Disk.new(5, 13, 5),
-      Disk.new(6, 11, 0)
-      ])
+  it "can solve part two" do
+    disks = [
+      {number_of_positions: 17, starting_position: 1},
+      {number_of_positions: 7, starting_position: 0},
+      {number_of_positions: 19, starting_position: 2},
+      {number_of_positions: 5, starting_position: 0},
+      {number_of_positions: 3, starting_position: 0},
+      {number_of_positions: 13, starting_position: 5},
+      {number_of_positions: 11, starting_position: 0}
+    ]
 
-    p "button press should be at time #{simulaton_result}"
-    
-    sculpture_result = Sculpture.new([
-      Disk.new(0, 17, 1),
-      Disk.new(1, 7, 0),
-      Disk.new(2, 19, 2),
-      Disk.new(3, 5, 0),
-      Disk.new(4, 3, 0),
-      Disk.new(5, 13, 5),
-      Disk.new(6, 11, 0)
-      ]).press_button_at_time simulaton_result
+    simulation_result = SculptureSimulator.simulate(disks.clone)
 
-    expect(sculpture_result.key? :falls_through).to eq true
+    SculptureSimulator.simulate_at_tick(disks.clone, simulation_result)
+    p "to solve part two press the button at #{simulation_result}"
   end
 end
