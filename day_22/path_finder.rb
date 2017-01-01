@@ -1,4 +1,4 @@
-require_relative('./step.rb')
+require_relative('./disk_step.rb')
 require_relative('../common/coordinate.rb')
 
 class EmptyToGoalPathFinder
@@ -12,7 +12,7 @@ class EmptyToGoalPathFinder
   # and the eventual goal is top left
   def find_path(starting_grid)
 
-    starting_step = Step.new(0, starting_grid)
+    starting_step = DiskStep.new(0, starting_grid)
 
     loop do
       target = [starting_step.grid.desired_data_node[0]-1, 0] #to the left of the desired data
@@ -37,8 +37,8 @@ class EmptyToGoalPathFinder
     seed_step = next_steps.select { |ns| ns.grid.empty_node.position == target }[0]
 
     moved_data_grid = seed_step.grid.copy_desired_data_to_empty_node
-    moved_data_step = Step.new(seed_step.step+1, moved_data_grid)
-    puts "moved data after #{moved_data_step.step} steps"
+    moved_data_step = DiskStep.new(seed_step.step+1, moved_data_grid)
+    # puts "moved data after #{moved_data_step.step} steps"
     # puts moved_data_step.grid.pretty_print
     moved_data_step
   end

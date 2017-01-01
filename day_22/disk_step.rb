@@ -1,4 +1,4 @@
-class Step 
+class DiskStep 
   attr_reader :step
 
   class << self
@@ -28,6 +28,6 @@ class Step
       new_grid
     end
 
-    new_grids.map { |e| Step.new(@step+1, e) }
+    new_grids.map { |e| DiskStep.new(@step+1, e) }
   end
 end
