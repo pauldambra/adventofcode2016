@@ -1,4 +1,6 @@
 class Step 
+  attr_reader :step
+
   class << self
     @shortest_path = 0
     attr_reader :shortest_path
@@ -11,19 +13,15 @@ class Step
     @grid = grid.clone
   end
 
-  def take_step(target)
+  def take_step(neighbours, target)
 
-    start_node = @grid.empty_node
-    p "start node #{start_node}"
-
-    neighbours_with_space = Coordinate.neighbours(
-      start_node.position, @grid.max_x, @grid.max_y
-      ).map {|c| @grid.nodes[c] }
-       .select {|n| start_node.has_space_for(n) }
+    neighbours_with_space = neighbours
+        .map {|c| @grid.nodes[c] }
+        .select {|n| @grid.empty_node.has_space_for(n) }
 
     new_grids = neighbours_with_space.map do |orig_neighbour|
       new_grid = @grid.clone
-      orig_empty = new_grid.nodes[start_node.position]
+      orig_empty = new_grid.nodes[@grid.empty_node.position]
       new_neighbour = new_grid.nodes[orig_neighbour.position]
       new_grid.nodes[orig_empty.position].take_data_from(new_neighbour)
       new_empty = new_grid.nodes.select { |k, n| n.is_empty? }

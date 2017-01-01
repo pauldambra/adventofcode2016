@@ -5,13 +5,13 @@ class DiskGrid
   attr_reader :nodes
   attr_reader :max_x
   attr_reader :max_y
-  attr_reader :desired_data_node
+  attr_accessor :desired_data_node
 
   def initialize(nodes)
     @max_x = nodes.max { |a, b| a.position[0]<=>b.position[0] }.position[0]
     @max_y = nodes.max { |a, b| a.position[1]<=>b.position[1] }.position[1]
 
-    @desired_data_node = [@max_x, 0]
+    # @desired_data_node = [@max_x, 0]
 
     @nodes = Hash.new
     nodes.each do |node|
@@ -24,9 +24,17 @@ class DiskGrid
     start.first[1]
   end
 
-  def empty_node_is_adjacent_to_goal?
-    neighbours = Coordinate.neighbours(empty_node.position, @max_x, @max_y)
-    neighbours.include? @desired_data_node
+  def copy_desired_data_to_empty_node
+    current_empty = empty_node
+    current_empty_position = current_empty.position
+    @nodes[current_empty_position].take_data_from(@nodes[@desired_data_node])
+    clone_with_new_desired_data_location(current_empty_position)    
+  end
+
+  def clone_with_new_desired_data_location(location)
+    new_grid = clone
+    new_grid.desired_data_node = location
+    new_grid
   end
 
   def pretty_print
@@ -36,10 +44,10 @@ class DiskGrid
         node = @nodes[[x,y]]
         neighbours = get_neighbours [x,y]
 
-        if [x,y] == [0,0]
-          '(.)'
-        elsif [x,y] == @desired_data_node
+        if [x,y] == @desired_data_node
           ' G '
+        elsif [x,y] == [0,0]
+          '(.)'
         elsif node.is_empty?
           ' _ '
         elsif neighbours.none? do |neighbour| 
@@ -63,6 +71,8 @@ class DiskGrid
   end
 
   def clone
-    DiskGrid.new(@nodes.map { |k,v| v.clone })
+    new_grid = DiskGrid.new(@nodes.map { |k,v| v.clone })
+    new_grid.desired_data_node = @desired_data_node.clone
+    new_grid
   end
 end

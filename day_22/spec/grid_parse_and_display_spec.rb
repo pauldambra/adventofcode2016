@@ -17,8 +17,10 @@ describe "grid parsing and display" do
     ]
     nodes = DiskNode.parse_many(input)
     grid = DiskGrid.new(nodes)
+    grid.desired_data_node = [1,3]
     grid_two = grid.clone
 
+    expect(grid_two.desired_data_node).to eq grid.desired_data_node
     expect(grid).not_to be grid_two     
   end
 
@@ -69,6 +71,8 @@ describe "grid parsing and display" do
     ]
       nodes = DiskNode.parse_many(input)
       grid = DiskGrid.new(nodes)
+      grid.desired_data_node = [2,0]
+
       grid_display = grid.pretty_print
 
       expect(grid_display).to eq [

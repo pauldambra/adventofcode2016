@@ -31,23 +31,19 @@ describe "getting the empty disk to the goal" do
     ]
     nodes = DiskNode.parse_many(input)
     grid = DiskGrid.new(nodes)
+    grid.desired_data_node = [grid.max_x,0]
 
     puts grid.pretty_print
 
     finder = EmptyToGoalPathFinder.new
 
-    path = finder.find_path(grid, grid.desired_data_node)
+    target_step = finder.find_path(grid)
 
-    expect(path.map { |p| p.grid.empty_node.position }).to match_array [
-      [1,0],
-      [2,1]
-    ]
+    puts "have a candidate end state"
+    puts target_step.grid.pretty_print
 
-    expect(finder.visited_nodes).to match_array [
-      [0,1],
-      [1,0],
-      [2,1],
-      [1,2]
-    ]
+    expect(target_step.grid.empty_node.position).to eq [1,0]
+
+    puts "took #{target_step.step} steps to get to this point"
   end
 end
